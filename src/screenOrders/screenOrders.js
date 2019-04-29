@@ -1,22 +1,33 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { loadOrders } from '../actions';
+import { loadOrdersFirstPage, loadOrdersMorePage } from '../actions';
 import { View, TouchableOpacity, FlatList } from 'react-native';
 import { Header, OrdersListRow } from '../components';
 import { styles } from '../styles';
 
 
 class ScreenOrders extends React.Component {
+    state ={
+        page: 1,
+    }
+
     componentDidMount() {
-        this.loadOrders();
+        this.loadOrdersFirstPage();
     }
 
     goToDetail = (order) => () => {
         this.props.navigation.navigate('Detail', order);
     }
 
-    loadOrders = () => {
-        this.props.loadOrders(this.props.auth);
+    loadOrdersFirstPage = () => {
+        console.log('first');
+        this.props.loadOrdersFirstPage(this.props.auth);
+        this.setState({page: 1});
+    }
+    loadOrdersMorePage = (page) => () => {
+        const nextPage = page + 1;
+        this.props.loadOrdersMorePage(this.props.auth, nextPage);
+        this.setState({page: nextPage});
     }
 
     render() {
@@ -42,7 +53,9 @@ class ScreenOrders extends React.Component {
                         )
                     }}
                     refreshing={false}
-                    onRefresh={this.loadOrders}
+                    onRefresh={this.loadOrdersFirstPage}
+                    onEndReached={this.loadOrdersMorePage(this.state.page)}
+                    onEndReachedThreshold={0.1}
                 />
             </View>
         )
@@ -58,7 +71,8 @@ const mapStateToProps = (state) => {
 };
 
 const actions = {
-    loadOrders,
+    loadOrdersFirstPage,
+    loadOrdersMorePage,
 };
 
 export default connect(

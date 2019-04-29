@@ -83,6 +83,8 @@ const orders = (state = [], action) => {
         case 'LOAD_ORDERS_SUCCESS': {
             return action.payload;
         }
+        case 'LOAD_ORDERS_MORE_SUCCESS':
+            return [...state, ...action.payload];
         default: {
             return state;
         }

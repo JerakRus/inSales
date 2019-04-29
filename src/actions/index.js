@@ -82,38 +82,73 @@ export const logIn = (login, password, url) => async dispatch => {
 };
 
 // orders
-export const loadOrdersRequest = () => {
+export const loadOrdersRequestFirstPage = () => {
     return {
         type: 'LOAD_ORDERS_REQUEST',
     }
 };
-export const loadOrdersSuccess = (orders) => {
+export const loadOrdersSuccessFirstPage = (orders) => {
     return {
         type: 'LOAD_ORDERS_SUCCESS',
         payload: orders,
     }
 };
-export const loadOrdersFailure = () => {
+export const loadOrdersFailureFirstPage = () => {
     return {
         type: 'LOAD_ORDERS_FAILURE',
     }
 };
 
-export const loadOrders = (auth) => async dispatch => {
-    dispatch(loadOrdersRequest());
+export const loadOrdersFirstPage = (auth) => async dispatch => {
+    dispatch(loadOrdersRequestFirstPage());
     try {
         const options = {
-            url: `${auth.url}/admin/orders.json`,
+            url: `${auth.url}/admin/orders.json?`,
+            params: {page: 1, per_page: 25},
             method: 'GET',
             headers: {
                 Authorization: `Basic ${auth.base64}`
             }
         };
         const res = await axios(options);
-        dispatch(loadOrdersSuccess(res.data));
+        dispatch(loadOrdersSuccessFirstPage(res.data));
     } catch (e) {
         console.log('ошибка загрузки заказов', e);
-        dispatch(loadOrdersFailureUrl());
+        dispatch(loadOrdersFailureFirstPage());
     }
 };
 
+export const loadOrdersRequestMorePage = () => {
+    return {
+        type: 'LOAD_ORDERS_MORE_REQUEST',
+    }
+};
+export const loadOrdersSuccessMorePage = (orders) => {
+    return {
+        type: 'LOAD_ORDERS_MORE_SUCCESS',
+        payload: orders,
+    }
+};
+export const loadOrdersFailureMorePage = () => {
+    return {
+        type: 'LOAD_ORDERS_MORE_FAILURE',
+    }
+};
+export const loadOrdersMorePage = (auth, page) => async dispatch => {
+    dispatch(loadOrdersRequestMorePage());
+    try {
+        const options = {
+            url: `${auth.url}/admin/orders.json?`,
+            params: {page: page, per_page: 25},
+            method: 'GET',
+            headers: {
+                Authorization: `Basic ${auth.base64}`
+            }
+        };
+        const res = await axios(options);
+        dispatch(loadOrdersSuccessMorePage(res.data));
+    } catch (e) {
+        console.log('ошибка загрузки заказов', e);
+        dispatch(loadOrdersFailureMorePage());
+    }
+};
