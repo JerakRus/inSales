@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { encode } from 'base-64';
+import AsyncStorage from '@react-native-community/async-storage';
 
 // form
 export const inputLogin = (text) => {
@@ -64,6 +65,8 @@ export const logIn = (login, password, url) => async dispatch => {
         };
         const res = await axios(options);
         dispatch(loginSuccess(res.data, base64, url));
+        await AsyncStorage.setItem('auth', base64);
+        await AsyncStorage.setItem('url', url);
         dispatch(clearForm());
     } catch (e) {
         if (e.response) {

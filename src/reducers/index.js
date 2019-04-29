@@ -2,9 +2,9 @@ import { combineReducers } from "redux";
 
 
 const initState = {
-    login: 'jerakrus@gmail.com',
-    password: 'hmNmmICC',
-    url: 'http://myshop-vs509.myinsales.ru',
+    login: '',
+    password: '',
+    url: '',
 };
 
 const authForm = (state = initState, action) => {

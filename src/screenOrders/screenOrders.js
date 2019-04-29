@@ -20,7 +20,6 @@ class ScreenOrders extends React.Component {
     }
 
     loadOrdersFirstPage = () => {
-        console.log('first');
         this.props.loadOrdersFirstPage(this.props.auth);
         this.setState({page: 1});
     }
@@ -55,7 +54,7 @@ class ScreenOrders extends React.Component {
                     refreshing={false}
                     onRefresh={this.loadOrdersFirstPage}
                     onEndReached={this.loadOrdersMorePage(this.state.page)}
-                    onEndReachedThreshold={0.1}
+                    onEndReachedThreshold={0.2}
                 />
             </View>
         )
