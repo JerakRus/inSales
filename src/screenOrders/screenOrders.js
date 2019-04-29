@@ -41,6 +41,7 @@ class ScreenOrders extends React.Component {
                             </TouchableOpacity>
                         )
                     }}
+                    refreshing={false}
                     onRefresh={this.loadOrders}
                 />
             </View>
