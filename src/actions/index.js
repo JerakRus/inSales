@@ -84,6 +84,24 @@ export const logIn = (login, password, url) => async dispatch => {
     }
 };
 
+// logOut
+
+export const logOutSuccess = () => {
+    return {
+        type: 'LOGOUT',
+    }
+};
+
+export const logOut = () => async dispatch => {
+    try{
+        dispatch(logOutSuccess());
+        await AsyncStorage.removeItem('auth');
+        await AsyncStorage.removeItem('url');
+    } catch (e) {
+        console.log('не получилось выйти', e);
+    }
+};
+
 // orders
 export const loadOrdersRequestFirstPage = () => {
     return {

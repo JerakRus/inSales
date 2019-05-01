@@ -70,6 +70,7 @@ class ScreenAuth extends React.Component {
 const mapStateToProps = (state) => {
     return {
         authForm: state.authForm,
+        isLogin: state.isLogin,
     }
 };
 

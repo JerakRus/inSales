@@ -41,6 +41,9 @@ const isLogin = (state = 'none', action) => {
         case 'LOGIN_FAILURE_URL': {
             return 'failure_url';
         }
+        case 'LOGOUT': {
+            return 'none';
+        }
         default: {
             return state;
         }
@@ -54,6 +57,9 @@ const auth = (state = {}, action) => {
                 base64: action.base64,
                 url: action.url,
             };
+        }
+        case 'LOGOUT': {
+            return {};
         }
         default: {
             return state;

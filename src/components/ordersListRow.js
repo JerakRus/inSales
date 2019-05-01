@@ -10,7 +10,7 @@ const OrdersListRow = (props) => {
         <View style={styles.ordersRow}>
             <View style={styles.columnLeft}>
                 <Text style={styles.h2}> {number} </Text>
-                <Text style={styles.textStyle}> {name} </Text>
+                    <Text style={styles.textStyle}> {name} </Text>
             </View>
             <View style={styles.columnCenter}>
                 <Status title={status}/>
